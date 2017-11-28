@@ -16,7 +16,7 @@ RUN curl -SL "https://d37drm4t2jghv5.cloudfront.net/distributions/${GAMS_VERSION
 
 # Install GAMS 
 RUN cd /opt/gams &&\
-    chmod +x gams.exe &&\
+    chmod +x gams.exe; sync &&\
     ./gams.exe &&\
     rm -rf gams.exe 
 
