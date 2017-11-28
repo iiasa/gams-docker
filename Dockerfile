@@ -9,16 +9,15 @@ ENV GAMS_VERSION=${LATEST}
 ENV GAMS_BIT_ARC=x64_64
 
 # Install wget 
-RUN apt-get update && apt-get install -y --no-install-recommends wget curl
+RUN apt-get update && apt-get install -y --no-install-recommends wget curl software-properties-common 
 
 # Download GAMS 
-RUN mkdir -p /opt/gams &&\
-    wget -c --no-check-certificate https://d37drm4t2jghv5.cloudfront.net/distributions/${GAMS_VERSION}/linux/linux_${GAMS_BIT_ARC}_sfx.exe -O /opt/gams/gams.exe 
+RUN curl -SL "https://d37drm4t2jghv5.cloudfront.net/distributions/${GAMS_VERSION}/linux/linux_${GAMS_BIT_ARC}_sfx.exe" --create-dirs -o /opt/gams/gams.exe
 
 # Install GAMS 
 RUN cd /opt/gams &&\
     chmod +x gams.exe &&\
-    ./gams.exe &&\ 
+    ./gams.exe &&\
     rm -rf gams.exe 
 
 # Configure GAMS 
