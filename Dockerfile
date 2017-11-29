@@ -20,9 +20,12 @@ RUN cd /opt/gams &&\
     ./gams.exe &&\
     rm -rf gams.exe 
 
-# Configure GAMS 
-RUN GAMS_PATH=$(dirname $(find / -name gams -type f -executable -print)) &&\ 
+# Add GAMS path to user env path
+RUN GAMS_PATH=$(dirname $(find / -name gams -type f -executable -print)) &&\
+    ln -s $GAMS_PATH/gams /usr/local/bin/gams &&\
     echo "export PATH=\$PATH:$GAMS_PATH" >> ~/.bashrc &&\
     cd $GAMS_PATH &&\
-    ./gamsinst -a 
+    ./gamsinst -a  
+
+ENTRYPOINT ["gams"]
 
