@@ -9,7 +9,7 @@ ENV GAMS_VERSION=24.8.5
 ENV GAMS_BIT_ARC=x64_64
 
 # Install wget 
-RUN apt-get update && apt-get install -y --no-install-recommends wget curl software-properties-common 
+RUN apt-get update && apt-get install -y --no-install-recommends wget curl software-properties-common git  
 
 # Download GAMS 
 RUN curl -SL "https://d37drm4t2jghv5.cloudfront.net/distributions/${GAMS_VERSION}/linux/linux_${GAMS_BIT_ARC}_sfx.exe" --create-dirs -o /opt/gams/gams.exe

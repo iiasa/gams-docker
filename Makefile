@@ -2,7 +2,7 @@ update: 24.8.5/Dockerfile 24.7.4/Dockerfile 24.6.1/Dockerfile 24.5.6/Dockerfile 
 
 build: latest 24.8.5 24.7.4 24.6.1 24.5.6 24.4.6 24.3.3 24.2.3 24.1.3 24.0.2 
 
-latest: .PHONY
+latest: .PHONY 
 	docker build -t iiasa/gams .
 
 24.8.5: .PHONY

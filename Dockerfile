@@ -9,7 +9,7 @@ ENV GAMS_VERSION=${LATEST}
 ENV GAMS_BIT_ARC=x64_64
 
 # Install wget 
-RUN apt-get update && apt-get install -y --no-install-recommends wget curl software-properties-common 
+RUN apt-get update && apt-get install -y --no-install-recommends wget curl software-properties-common git  
 
 # Download GAMS 
 RUN curl -SL "https://d37drm4t2jghv5.cloudfront.net/distributions/${GAMS_VERSION}/linux/linux_${GAMS_BIT_ARC}_sfx.exe" --create-dirs -o /opt/gams/gams.exe
@@ -20,9 +20,12 @@ RUN cd /opt/gams &&\
     ./gams.exe &&\
     rm -rf gams.exe 
 
-# Configure GAMS 
-RUN GAMS_PATH=$(dirname $(find / -name gams -type f -executable -print)) &&\ 
+# Add GAMS path to user env path
+RUN GAMS_PATH=$(dirname $(find / -name gams -type f -executable -print)) &&\
+    ln -s $GAMS_PATH/gams /usr/local/bin/gams &&\
     echo "export PATH=\$PATH:$GAMS_PATH" >> ~/.bashrc &&\
     cd $GAMS_PATH &&\
-    ./gamsinst -a 
+    ./gamsinst -a  
+
+ENTRYPOINT ["gams"]
 
